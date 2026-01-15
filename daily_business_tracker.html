@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>দৈনিক ব্যবসা ট্র্যাকার</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #5a67d8;
+        }
+        td {
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        tr:hover {
+            background-color: #edf2f7;
+        }
+        .date-col { background-color: #ebf4ff; font-weight: bold; }
+        .ad-cost-col { background-color: #fef5e7; }
+        .parcel-count-col { background-color: #e8f5e9; }
+        .parcel-amount-col { background-color: #e1f5fe; }
+        .payment-received-col { background-color: #f3e5f5; }
+        .supplier-payment-col { background-color: #fff3e0; }
+        .profit-col { background-color: #e8f8f5; }
+        .cost-per-parcel-col { background-color: #fce4ec; }
+        
+        .summary-section {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .summary-card {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .card-title {
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .card-subtitle {
+            font-size: 12px;
+            color: #718096;
+        }
+        .card-purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .card-green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; }
+        .card-blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; }
+        .card-orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; }
+        
+        .instructions {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #667eea;
+        }
+        .instructions h3 {
+            color: #2d3748;
+            margin-top: 0;
+        }
+        .instructions ol {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        .formula-note {
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #f56565;
+        }
+        .formula-note h4 {
+            color: #c53030;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 দৈনিক ব্যবসা ট্র্যাকার</h1>
+        <p class="subtitle">প্রতিদিনের খরচ, বিক্রয় এবং লাভের হিসাব</p>
+        
+        <table id="mainTable">
+            <thead>
+                <tr>
+                    <th>তারিখ</th>
+                    <th>বিজ্ঞাপন খরচ (৳)</th>
+                    <th>পার্সেল সংখ্যা</th>
+                    <th>পার্সেলের মূল্য (৳)</th>
+                    <th>পেমেন্ট প্রাপ্ত (৳)</th>
+                    <th>সাপ্লায়ার পেমেন্ট (৳)</th>
+                    <th>দৈনিক লাভ (৳)</th>
+                    <th>পার্সেল প্রতি খরচ (৳)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="date-col">০১/০১/২০২৬</td>
+                    <td class="ad-cost-col">৫০০</td>
+                    <td class="parcel-count-col">১৫</td>
+                    <td class="parcel-amount-col">১৫,০০০</td>
+                    <td class="payment-received-col">১২,০০০</td>
+                    <td class="supplier-payment-col">৮,০০০</td>
+                    <td class="profit-col">৩,৫০০</td>
+                    <td class="cost-per-parcel-col">৩৩.৩৩</td>
+                </tr>
+                <tr>
+                    <td class="date-col">০২/০১/২০২৬</td>
+                    <td class="ad-cost-col">৬০০</td>
+                    <td class="parcel-count-col">২০</td>
+                    <td class="parcel-amount-col">২০,০০০</td>
+                    <td class="payment-received-col">১৮,০০০</td>
+                    <td class="supplier-payment-col">১০,০০০</td>
+                    <td class="profit-col">৭,৪০০</td>
+                    <td class="cost-per-parcel-col">৩০.০০</td>
+                </tr>
+                <tr>
+                    <td class="date-col">০৩/০১/২০২৬</td>
+                    <td class="ad-cost-col">৭০০</td>
+                    <td class="parcel-count-col">২৫</td>
+                    <td class="parcel-amount-col">২৫,০০০</td>
+                    <td class="payment-received-col">২২,০০০</td>
+                    <td class="supplier-payment-col">১২,০০০</td>
+                    <td class="profit-col">৯,৩০০</td>
+                    <td class="cost-per-parcel-col">২৮.০০</td>
+                </tr>
+                <tr>
+                    <td class="date-col">০৪/০১/২০২৬</td>
+                    <td class="ad-cost-col">৮০০</td>
+                    <td class="parcel-count-col">৩০</td>
+                    <td class="parcel-amount-col">৩০,০০০</td>
+                    <td class="payment-received-col">২৫,০০০</td>
+                    <td class="supplier-payment-col">১৫,০০০</td>
+                    <td class="profit-col">৯,২০০</td>
+                    <td class="cost-per-parcel-col">২৬.৬৭</td>
+                </tr>
+                <tr>
+                    <td class="date-col">০৫/০১/২০২৬</td>
+                    <td class="ad-cost-col">৫৫০</td>
+                    <td class="parcel-count-col">১৮</td>
+                    <td class="parcel-amount-col">১৮,০০০</td>
+                    <td class="payment-received-col">১৬,০০০</td>
+                    <td class="supplier-payment-col">৯,০০০</td>
+                    <td class="profit-col">৬,৪৫০</td>
+                    <td class="cost-per-parcel-col">৩০.৫৬</td>
+                </tr>
+                <tr style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); font-weight: bold;">
+                    <td>মোট (৫ দিন)</td>
+                    <td>৩,১৫০</td>
+                    <td>১০৮</td>
+                    <td>১,০৮,০০০</td>
+                    <td>৯৩,০০০</td>
+                    <td>৫৪,০০০</td>
+                    <td>৩৫,৮৫০</td>
+                    <td>২৯.১৭ (গড়)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="summary-section">
+            <div class="summary-card card-purple">
+                <div class="card-title">মাসিক মোট লাভ</div>
+                <div class="card-value">৩৫,৮৫০৳</div>
+                <div class="card-subtitle">৫ দিনের হিসাব</div>
+            </div>
+            <div class="summary-card card-green">
+                <div class="card-title">মোট পার্সেল</div>
+                <div class="card-value">১০৮টি</div>
+                <div class="card-subtitle">দৈনিক গড়: ২১.৬টি</div>
+            </div>
+            <div class="summary-card card-blue">
+                <div class="card-title">মোট বিক্রয়</div>
+                <div class="card-value">১,০৮,০০০৳</div>
+                <div class="card-subtitle">দৈনিক গড়: ২১,৬০০৳</div>
+            </div>
+            <div class="summary-card card-orange">
+                <div class="card-title">গড় বিজ্ঞাপন খরচ</div>
+                <div class="card-value">৬৩০৳</div>
+                <div class="card-subtitle">প্রতি পার্সেল: ২৯.১৭৳</div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 Google Sheets-এ ব্যবহারের নির্দেশনা:</h3>
+            <ol>
+                <li>উপরের টেবিলটি সম্পূর্ণ সিলেক্ট করুন (Ctrl+A বা সবগুলো সেল ড্র্যাগ করে)</li>
+                <li>কপি করুন (Ctrl+C)</li>
+                <li>Google Sheets খুলুন এবং পেস্ট করুন (Ctrl+V)</li>
+                <li>প্রতিদিনের ডেটা এন্ট্রি করুন নতুন রো যোগ করে</li>
+                <li>নিচের ফর্মুলা ব্যবহার করে অটোমেটিক ক্যালকুলেশন করুন</li>
+            </ol>
+        </div>
+
+        <div class="formula-note">
+            <h4>⚙️ Google Sheets ফর্মুলা (কলাম অনুযায়ী):</h4>
+            <p><strong>দৈনিক লাভ (G কলাম):</strong> <code>=E2-B2-F2</code></p>
+            <p style="margin-top: 8px;"><em>(পেমেন্ট প্রাপ্ত - বিজ্ঞাপন খরচ - সাপ্লায়ার পেমেন্ট)</em></p>
+            
+            <p style="margin-top: 15px;"><strong>পার্সেল প্রতি খরচ (H কলাম):</strong> <code>=B2/C2</code></p>
+            <p style="margin-top: 8px;"><em>(বিজ্ঞাপন খরচ ÷ পার্সেল সংখ্যা)</em></p>
+            
+            <p style="margin-top: 15px;"><strong>মোট হিসাব (শেষ রো):</strong> <code>=SUM(B2:B6)</code> প্রতিটি কলামে</p>
+            <p style="margin-top: 8px;"><em>(গড় বের করতে: =AVERAGE(B2:B6))</em></p>
+        </div>
+    </div>
+</body>
+</html>
